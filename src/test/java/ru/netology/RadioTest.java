@@ -4,17 +4,45 @@ import org.junit.jupiter.api.Test;
 
 public class RadioTest {
 
+    Radio radio = new Radio();
+
+    @Test
+    void shouldChangeStation () {
+        assertEquals( 0, radio.getCurrentStation());
+        radio.setCurrentStation(5);
+        assertEquals(5, radio.getCurrentStation());
+    }
+
+    @Test
+    void shouldMaxStation() {
+        radio.setCurrentStation(9);
+        radio.nextStation();
+        assertEquals(0, radio.getCurrentStation());
+    }
+
+    @Test
+    public void shouldNextStation() {
+        radio.setCurrentStation(6);
+        radio.nextStation();
+
+        int expected = 7;
+        int actual = radio.getCurrentStation();
+
+        assertEquals(expected, actual);
+    }
+
     @Test //установить станцию
     public void shouldCurrentStation () {
-        Radio radio = new Radio();
+//        Radio radio = new Radio();
 
         radio.setCurrentStation(6);
 
         int expected = 6;
         int actual = radio.getCurrentStation();
 
-        assertEquals(expected, actual);
+       assertEquals(expected, actual);
     }
+
 
     @Test //установить звук
     public void shouldCurrentVolume() {
@@ -31,11 +59,11 @@ public class RadioTest {
     @Test //граничное значение звука 9
     public void shouldIncreaseVolume() {
         Radio radio = new Radio();
-        radio.setCurrentVolume(9);
+        radio.setCurrentVolume(100);
 
         radio.increaseVolume();
 
-        int expected = 10;
+        int expected = 100;
         int actual = radio.getCurrentVolume();
 
         assertEquals(expected, actual);
@@ -44,20 +72,22 @@ public class RadioTest {
     @Test //установить максимальный звук
     public void setMaxVolume() {
         Radio radio = new Radio();
-        radio.setCurrentVolume(10);
+        radio.setCurrentVolume(100);
 
         radio.increaseVolume();
 
-        int expected = 10;
+        int expected = 100;
         int actual = radio.getCurrentVolume();
 
         assertEquals(expected, actual);
+
+
     }
 
     @Test //установить звук выше максимального
     public void setUnderMaxVolume() {
         Radio radio = new Radio();
-        radio.setCurrentVolume(11);
+        radio.setCurrentVolume(110);
 
         radio.increaseVolume();
 
@@ -65,6 +95,7 @@ public class RadioTest {
         int actual = radio.getCurrentVolume();
 
         assertEquals(expected, actual);
+
     }
 
     @Test // установить минимальное значение звука
